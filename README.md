@@ -110,6 +110,26 @@ See [`INSTRUCTIONS.md`](INSTRUCTIONS.md) — a complete setup guide written spec
 | [Lead Gen Agent](templates/soul/leadgen-agent.md) | Prospect research and lead scoring |
 | [Ops Agent](templates/soul/ops-agent.md) | Email, calendar, and data management |
 
+### Extended Template Library (cross-checked with Agency Agents)
+
+Added a large cross-checked template library from [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) directly under `templates/soul/`:
+
+- `templates/soul/design`
+- `templates/soul/engineering`
+- `templates/soul/game-development`
+- `templates/soul/integrations`
+- `templates/soul/marketing`
+- `templates/soul/performance-marketing`
+- `templates/soul/product`
+- `templates/soul/project-management`
+- `templates/soul/sales`
+- `templates/soul/spatial-computing`
+- `templates/soul/specialized`
+- `templates/soul/support`
+- `templates/soul/testing`
+
+See [templates/soul/README.md](templates/soul/README.md) for catalog + adaptation checklist + advanced OpenClaw practices.
+
 ### Identity Template
 
 | Template | Purpose |
@@ -125,6 +145,17 @@ See [`INSTRUCTIONS.md`](INSTRUCTIONS.md) — a complete setup guide written spec
 | [FEEDBACK-LOG.md](templates/workspace/FEEDBACK-LOG.md) | Style corrections and lessons |
 | [SUPERGROUP-MAP.md](templates/workspace/SUPERGROUP-MAP.md) | Topic and agent mapping |
 | [AGENTS.md](templates/workspace/AGENTS.md) | Orchestrator operations guide |
+
+### Skill Templates (SKILL.md)
+
+| Template | Purpose |
+|----------|---------|
+| [Skills Index](templates/skills/README.md) | Overview + placement guidance |
+| [coding-handoff](templates/skills/coding-handoff/SKILL.md) | Build→QA→Deploy handoff lifecycle |
+| [research-intel](templates/skills/research-intel/SKILL.md) | Signal extraction + confidence scoring |
+| [leadgen-qualification](templates/skills/leadgen-qualification/SKILL.md) | ICP scoring + outreach routing |
+| [content-repurpose](templates/skills/content-repurpose/SKILL.md) | Cross-channel post repurposing |
+| [ops-triage](templates/skills/ops-triage/SKILL.md) | Priority routing for inbox/calendar/tasks |
 
 ---
 
@@ -189,8 +220,10 @@ The receiving agent gets the message as a new session input and posts ACK + DONE
 - [INSTRUCTIONS.md](INSTRUCTIONS.md) — **AI-readable setup guide** (give this to your agent)
 - [Agent Design Patterns](docs/agent-design-patterns.md) — How to write effective SOUL.md files
 - [Supergroup Setup Guide](docs/supergroup-setup.md) — Step-by-step Telegram setup
+- [Telegram Channel Architecture](docs/telegram-channel-architecture.md) — Production lane design for topic routing
 - [Telegram DM Topics Guide](docs/telegram-dm-topics.md) — How to create and use forum topics inside a direct chat
 - [Scaling Your Team](docs/scaling.md) — Adding new agents and teams
+- [Advanced OpenClaw Practices](docs/advanced-openclaw-practices.md) — High-leverage patterns for real multi-agent ops
 
 ---
 

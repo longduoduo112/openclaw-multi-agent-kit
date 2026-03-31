@@ -1,7 +1,12 @@
 ---
 name: coding-handoff
 description: Standardize coding handoffs between builder, QA, and deploy agents. Use when a coding task moves across stages and requires strict ACK/DONE/BLOCKED status updates, branch metadata, and PR readiness checks.
+version: "1.0.0"
 ---
+
+## Install
+
+Copy to `agents/<coder>/skills/coding-handoff/SKILL.md`. Requires agents configured with `sessions_send` for inter-agent handoffs.
 
 # Coding Handoff Skill
 

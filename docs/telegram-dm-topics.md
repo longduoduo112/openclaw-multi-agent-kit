@@ -147,7 +147,7 @@ You can bind a Telegram topic to a persistent ACP coding agent so every message 
 }
 ```
 
-Use `"agent": "claude"` for Claude Code, `"agent": "codex"` for Codex, `"agent": "opencode"` for opencode.
+Supported agents: `claude` (Claude Code), `codex` (Codex CLI), `opencode` (OpenCode), `gemini` (Gemini CLI), `pi` (Pi Coding Agent), `copilot` (GitHub Copilot CLI), `cursor` (Cursor CLI), `droid` (Factory Droid), `kimi` (Kimi CLI), `kiro` (Kiro CLI), `qwen` (Qwen Code), `trae` (Trae CLI).
 
 ### Step 2 — Add a persistent ACP binding
 
@@ -256,6 +256,32 @@ For programmatic ACP spawning, route through a subagent intermediary:
 
 For chat-driven ACP sessions, use `/acp spawn` slash command or configure persistent bindings as above.
 
+### ACPX Session Management
+
+Once an ACP topic is set up, you can manage coding sessions:
+
+- Named sessions: `acpx codex sessions new --name api` creates a parallel workstream
+- Status: `acpx codex status` shows current session state
+- Cancel: `acpx codex cancel` cooperatively cancels in-flight prompts
+- One-shot: `acpx codex exec "summarize this file"` for stateless tasks
+
+See [acpx-telegram.md](acpx-telegram.md) for the complete guide.
+
+### --bind here (v2026.3.28+)
+
+OpenClaw v2026.3.28 added current-conversation ACP binds. Use:
+
+```
+/acp spawn codex --bind here
+```
+
+This turns the current Telegram conversation into a coding workspace without creating a child thread. The ACP session lives in the current chat surface.
+
+Difference from persistent bindings:
+- Persistent bindings (Step 2 above) are configured in openclaw.json and survive restarts
+- `--bind here` is a runtime command that binds to the current conversation for the session lifetime
+- Use persistent bindings for permanent coding topics; use `--bind here` for ad-hoc coding tasks
+
 ---
 
 ## How to use DM topics
@@ -309,6 +335,7 @@ So topic routing changes the brain, not the face.
 - record topic IDs if you plan to automate follow-up messages
 - expect new-topic pairing behavior in stricter access setups
 - for ACP-bound topics, configure persistent bindings in `openclaw.json` rather than using `/acp spawn` each time
+- for the full ACPX guide including exec mode, flows, and multi-agent patterns, see [acpx-telegram.md](acpx-telegram.md)
 
 ---
 

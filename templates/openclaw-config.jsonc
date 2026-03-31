@@ -17,6 +17,11 @@
     }
   },
 
+  // Skills system (v2026.3.24+) — one-click install, ClawHub marketplace
+  "skills": {
+    "enabled": true
+  },
+
   // Telegram channel config
   "channels": {
     "telegram": {
@@ -26,6 +31,14 @@
     }
   },
 
+  // ACP / ACPX — coding agent backend via Agent Client Protocol
+  "acp": {
+    "enabled": true,
+    "backend": "acpx",
+    "defaultAgent": "claude",
+    "allowedAgents": ["claude", "codex", "opencode", "gemini", "pi"]
+  },
+
   // Messages config
   "messages": {
     "ackReactionScope": "group-mentions"
@@ -33,7 +46,13 @@
 
   // Session config
   "session": {
-    "dmScope": "per-channel-peer"
+    "dmScope": "per-channel-peer",
+    // Thread bindings — persistent sessions per topic/thread
+    "threadBindings": {
+      "enabled": true,
+      "idleHours": 48,
+      "maxAgeHours": 0
+    }
   },
 
   // Hooks for boot files, memory, etc.

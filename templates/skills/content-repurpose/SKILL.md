@@ -1,7 +1,12 @@
 ---
 name: content-repurpose
 description: Transform one source artifact into channel-specific drafts while preserving core thesis. Use for cross-post workflows (X, LinkedIn, Reddit, newsletter snippets).
+version: "1.0.0"
 ---
+
+## Install
+
+Copy to `agents/<content>/skills/content-repurpose/SKILL.md`. Requires THESIS.md in shared context.
 
 # Content Repurpose Skill
 

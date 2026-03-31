@@ -52,7 +52,7 @@ A complete template kit for deploying a multi-agent team on **OpenClaw + Telegra
 
 ### Key Concepts
 
-- **Two Telegram routing models** — choose between multi-bot routing and native topic `agentId` routing
+- **Three Telegram routing models** — multi-bot routing, native topic routing, and DM forum topics
 - **Multi-bot routing** — Each agent has its own Telegram bot token and visible identity
 - **Native topic routing** — One Telegram bot can route different topics to different internal agents via `topics.<id>.agentId`
 - **One topic per team** — Teams share a topic channel in a supergroup
@@ -138,6 +138,10 @@ See [templates/soul/README.md](templates/soul/README.md) for the full role catal
 | [leadgen-qualification](templates/skills/leadgen-qualification/SKILL.md) | ICP scoring + outreach routing |
 | [content-repurpose](templates/skills/content-repurpose/SKILL.md) | Cross-channel post repurposing |
 | [ops-triage](templates/skills/ops-triage/SKILL.md) | Priority routing for inbox/calendar/tasks |
+| [telegram-topic-setup](templates/skills/telegram-topic-setup/SKILL.md) | Automated topic creation and agent binding |
+| [acpx-session](templates/skills/acpx-session/SKILL.md) | ACPX session management patterns for agents |
+
+OpenClaw v2026.3.24+ includes a native Skills system with one-click install from [ClawHub](https://clawhub.com), Control UI management, and CLI tools. All templates above are compatible with the native system. See [docs/skills-system.md](docs/skills-system.md) for details.
 
 ---
 
@@ -180,6 +184,16 @@ sessions_send(agentId="qa-agent", message="HANDOFF\nfrom: coder\nto: qa\ntask_id
 
 The receiving agent gets the message as a new session input and posts ACK + DONE updates in the shared topic.
 
+### ACPX Coding Subagents
+
+Agents can delegate coding work to dedicated coding agents (Claude Code, Codex, OpenCode) via [ACPX](https://github.com/openclaw/acpx):
+
+1. Define a coder agent with `runtime.type: "acp"` in openclaw.json
+2. Other agents trigger it via `sessions_spawn(runtime="acp")` from a subagent session
+3. Or use `/acp spawn codex --bind here` to turn any Telegram conversation into a coding workspace
+
+See [docs/acpx-telegram.md](docs/acpx-telegram.md) for the full guide.
+
 ### Shared Context via Files
 
 | File | Purpose |
@@ -206,6 +220,8 @@ The receiving agent gets the message as a new session input and posts ACK + DONE
 - [Telegram DM Topics Guide](docs/telegram-dm-topics.md) — How to create and use forum topics inside a direct chat
 - [Scaling Your Team](docs/scaling.md) — Adding new agents and teams
 - [Advanced OpenClaw Practices](docs/advanced-openclaw-practices.md) — High-leverage patterns for real multi-agent ops
+- [Skills System](docs/skills-system.md) — Native OpenClaw skills, ClawHub marketplace, creating custom skills
+- [ACPX for Telegram](docs/acpx-telegram.md) — Using ACPX as a Telegram coding agent backend
 
 ---
 

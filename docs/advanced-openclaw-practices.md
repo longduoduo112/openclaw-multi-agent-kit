@@ -86,3 +86,15 @@ Every substantial task should end with:
 - Next Action
 
 Why: this makes downstream handoffs and human review dramatically easier.
+
+## 11) Use Skills for Deterministic Workflows
+
+When an agent needs to follow a strict, repeatable process (scoring leads, triaging inbox, qualifying research signals), wrap it in a SKILL.md. Skills give you a single place to update the workflow, enforce output schemas, and add acceptance criteria. They are loaded by the agent at runtime and produce consistent results regardless of the agent's personality. See [docs/skills-system.md](skills-system.md) for the native Skills system.
+
+## 12) ACPX for Coding Subagent Delegation
+
+Don't have agents write code via prompt engineering — use ACPX to delegate to a dedicated coding agent (Claude Code, Codex, OpenCode). Define the coder as an ACP agent in openclaw.json with `runtime.type: "acp"`. Other agents trigger it via `sessions_spawn(runtime="acp")` from a subagent session. The coding agent gets its own workspace, tools, and session state. This separates coordination logic from implementation. See [docs/acpx-telegram.md](acpx-telegram.md).
+
+## 13) Thread Bindings for Persistent Coding Sessions
+
+Enable `session.threadBindings` with `spawnAcpSessions: true` on the coder's Telegram account. This creates persistent ACP sessions per topic thread, so the coding agent remembers context across messages without re-establishing state. Set `idleHours` (48 recommended) to control session lifetime. Combine with the `--bind here` pattern for ad-hoc coding topics.

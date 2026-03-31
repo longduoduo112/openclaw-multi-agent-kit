@@ -274,7 +274,45 @@ In `channels.telegram.accounts`, add each agent's bot config:
 
 **Every agent** sharing that topic must have this exact config. No exceptions.
 
-### 5.4 Configure groupAllowFrom
+### 5.4 Add ACP config (optional)
+
+If you want agents to spawn coding subagents via ACPX:
+
+```json
+"acp": {
+  "enabled": true,
+  "backend": "acpx",
+  "defaultAgent": "claude",
+  "allowedAgents": ["claude", "codex", "opencode", "gemini", "pi"]
+}
+```
+
+This lets the coder agent use `sessions_spawn(runtime="acp")` to delegate to Claude Code, Codex, or other ACP-compatible agents.
+
+### 5.5 Add thread bindings (recommended)
+
+Enable persistent sessions per topic:
+
+```json
+"session": {
+  "threadBindings": {
+    "enabled": true,
+    "idleHours": 48,
+    "maxAgeHours": 0
+  }
+}
+```
+
+On the coder's Telegram account, also add:
+
+```json
+"threadBindings": {
+  "enabled": true,
+  "spawnAcpSessions": true
+}
+```
+
+### 5.6 Configure groupAllowFrom
 
 For each account, add the human's Telegram user ID to restrict who can interact:
 
@@ -388,6 +426,37 @@ openclaw restart
 
 ## Phase 8: Optional Enhancements
 
+### Skills setup
+
+Install skills for your agents:
+
+```bash
+# List available skills
+openclaw skills list
+
+# Get details on a skill
+openclaw skills info coding-handoff
+```
+
+Or copy skill templates from `templates/skills/` into agent workspaces:
+
+```bash
+cp templates/skills/coding-handoff/SKILL.md ~/.openclaw/workspace/agents/coder/skills/coding-handoff/SKILL.md
+```
+
+See [docs/skills-system.md](docs/skills-system.md) for the native Skills system.
+
+### ACPX setup
+
+If you skipped ACP in Phase 5.4 and want to add coding subagent delegation later:
+
+```bash
+npm install -g acpx@latest
+acpx --version
+```
+
+Then add the `acp` config block from Phase 5.4 to your `openclaw.json`. See [docs/acpx-telegram.md](docs/acpx-telegram.md) for the full guide.
+
 ### Cron jobs
 
 Schedule recurring tasks:
@@ -476,6 +545,10 @@ sessions_spawn(runtime="acp", agentId="claude", cwd="/path/to/repo")
 - [ ] Bot-to-bot communication tested
 - [ ] Cron jobs configured (if needed)
 - [ ] Human briefed on what each agent does and where to find them
+- [ ] ACP config added (if using coding subagents)
+- [ ] Thread bindings configured
+- [ ] Skills installed or copied to agent workspaces
+- [ ] ACPX installed and tested (if using coding subagents)
 
 ---
 

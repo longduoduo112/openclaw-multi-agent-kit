@@ -1,7 +1,12 @@
 ---
 name: leadgen-qualification
 description: Qualify leads against ICP with transparent scoring and clear next steps. Use when converting raw prospects into prioritized outreach queues.
+version: "1.0.0"
 ---
+
+## Install
+
+Copy to `agents/<leadgen>/skills/leadgen-qualification/SKILL.md`. Requires ICP definition in workspace.
 
 # Leadgen Qualification Skill
 

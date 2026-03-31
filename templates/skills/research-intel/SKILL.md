@@ -1,7 +1,12 @@
 ---
 name: research-intel
 description: Produce concise, decision-ready market intelligence briefs with confidence and source quality scoring. Use for competitor analysis, trend detection, and strategic signal synthesis.
+version: "1.0.0"
 ---
+
+## Install
+
+Copy to `agents/<researcher>/skills/research-intel/SKILL.md`. Requires web search tool access.
 
 # Research Intel Skill
 

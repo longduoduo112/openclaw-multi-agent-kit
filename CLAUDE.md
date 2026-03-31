@@ -31,6 +31,8 @@
 │   ├── agent-design-patterns.md       # How to write effective SOUL.md files
 │   ├── scaling.md                     # Scaling guidance: when to add agents, cost, circular triggers
 │   ├── supergroup-setup.md            # Step-by-step Telegram supergroup setup (covers multi-bot + native topic routing)
+│   ├── skills-system.md               # Native skills system, ClawHub, creating custom skills
+│   ├── acpx-telegram.md               # ACPX coding agent backend for Telegram
 │   └── telegram-dm-topics.md          # Telegram DM forum topics + ACP binding guide
 ├── examples/
 │   ├── full-team.json                 # Complete 10-agent openclaw.json config
@@ -50,12 +52,20 @@
     │   ├── community-agent.md         # Community engagement (Reddit, forums)
     │   ├── leadgen-agent.md           # Prospect research and lead scoring
     │   └── ops-agent.md              # Email, calendar, and data management
-    └── workspace/                     # Shared context file templates
-        ├── AGENTS.md                  # Orchestrator operations guide
-        ├── FEEDBACK-LOG.md            # Style corrections and lessons
-        ├── SIGNALS.md                 # Shared intelligence hub
-        ├── SUPERGROUP-MAP.md          # Topic and agent mapping
-        └── THESIS.md                  # Business thesis — north star for all agents
+    ├── workspace/                     # Shared context file templates
+    │   ├── AGENTS.md                  # Orchestrator operations guide
+    │   ├── FEEDBACK-LOG.md            # Style corrections and lessons
+    │   ├── SIGNALS.md                 # Shared intelligence hub
+    │   ├── SUPERGROUP-MAP.md          # Topic and agent mapping
+    │   └── THESIS.md                  # Business thesis — north star for all agents
+    └── skills/                        # Skill templates (SKILL.md)
+        ├── coding-handoff/            # Build→QA→Deploy handoff lifecycle
+        ├── research-intel/            # Signal extraction + confidence scoring
+        ├── leadgen-qualification/     # ICP scoring + outreach routing
+        ├── content-repurpose/         # Cross-channel post repurposing
+        ├── ops-triage/                # Priority routing for inbox/calendar/tasks
+        ├── telegram-topic-setup/      # Automated topic creation and binding
+        └── acpx-session/              # ACPX session management patterns
 ```
 
 ## Architecture — Key Concepts
@@ -75,6 +85,14 @@
 | **Native topic routing** | One bot, different internal agents per topic | Clean single-bot UX with internal specialization |
 | **DM forum topics** | Topics inside a direct chat | Private 1:1 organized conversations with ACP support |
 
+### Skills System (v2026.3.24+)
+
+OpenClaw includes a native Skills system with one-click install from ClawHub, Control UI management, and CLI tools. Skills are placed at `agents/<agent>/skills/<skill-name>/SKILL.md` and use YAML frontmatter + markdown body format.
+
+### ACPX Coding Subagents
+
+Agents can delegate coding work to dedicated coding agents (Claude Code, Codex, OpenCode) via ACPX. Define a coder agent with `runtime.type: "acp"` in openclaw.json. Other agents trigger it via `sessions_spawn(runtime="acp")` from a subagent session. Thread bindings with `spawnAcpSessions` create persistent sessions per topic.
+
 ### Team Layout (default)
 
 | Team     | Topic    | Primary Agent | Secondary Agents    |
@@ -85,6 +103,8 @@
 | Social   | Topic N  | Content       | Community           |
 | Leads    | Topic N  | Lead Gen      | —                   |
 | Ops      | Topic N  | Ops           | —                   |
+
+The coder agent can optionally use ACPX (`runtime.type: "acp"`) to delegate to coding subagents. Add an ACP binding in the Build topic for persistent coding sessions.
 
 ### Critical Config Rule: `requireMention`
 
@@ -98,6 +118,9 @@
 - **SOUL.md structure** follows the 10-section pattern from `docs/agent-design-patterns.md`: Identity, Who I Am, Core Principles, How I Work, Domain Sections, Communication Style, Shared Context, Team Integration, Learning/Memory, Success Metrics
 - **Model selection:** Orchestrator/Coder use sonnet-4-6 or opus-4-6; lighter agents (QA, DevOps, Ops, Community) use haiku-4-5
 - **Example configs** must stay in sync — `full-team.json` covers all 10 agents, `minimal-team.json` covers orchestrator + coder + QA
+- **Skills format** uses YAML frontmatter (`name`, `description`, `version`) + markdown body with `## Install` section
+- **ACPX agents** supported: claude, codex, opencode, gemini, pi, copilot, cursor, droid, kimi, kiro, qwen, trae
+- **ACP config** goes at top level in openclaw.json with `acp.enabled`, `acp.backend`, `acp.allowedAgents`
 
 ## Editing Guidelines
 

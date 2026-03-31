@@ -29,10 +29,29 @@
     ]
   },
 
+  "skills": {
+    "enabled": true
+  },
+
+  "acp": {
+    "enabled": true,
+    "backend": "acpx",
+    "defaultAgent": "claude",
+    "allowedAgents": ["claude", "codex", "opencode"]
+  },
+
   "bindings": [
     { "agentId": "coder", "match": { "channel": "telegram", "accountId": "coder" } },
     { "agentId": "qa", "match": { "channel": "telegram", "accountId": "qa" } }
   ],
+
+  "session": {
+    "dmScope": "per-channel-peer",
+    "threadBindings": {
+      "enabled": true,
+      "idleHours": 48
+    }
+  },
 
   "channels": {
     "telegram": {

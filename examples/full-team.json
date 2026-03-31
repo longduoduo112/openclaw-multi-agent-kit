@@ -66,6 +66,13 @@
     ]
   },
 
+  "acp": {
+    "enabled": true,
+    "backend": "acpx",
+    "defaultAgent": "claude",
+    "allowedAgents": ["claude", "codex", "opencode", "gemini", "pi"]
+  },
+
   "bindings": [
     { "agentId": "coder", "match": { "channel": "telegram", "accountId": "coder" } },
     { "agentId": "qa", "match": { "channel": "telegram", "accountId": "qa" } },
@@ -75,8 +82,35 @@
     { "agentId": "content", "match": { "channel": "telegram", "accountId": "content" } },
     { "agentId": "community", "match": { "channel": "telegram", "accountId": "community" } },
     { "agentId": "leadgen", "match": { "channel": "telegram", "accountId": "leadgen" } },
-    { "agentId": "ops", "match": { "channel": "telegram", "accountId": "ops" } }
+    { "agentId": "ops", "match": { "channel": "telegram", "accountId": "ops" } },
+    {
+      "type": "acp",
+      "agentId": "coder",
+      "match": {
+        "channel": "telegram",
+        "accountId": "default",
+        "peer": { "kind": "group", "id": "YOUR_GROUP_ID:topic:YOUR_CODING_TOPIC_ID" }
+      },
+  "skills": {
+    "enabled": true
+  },
+
+  "acp": {
+        "label": "coding",
+        "mode": "persistent",
+        "cwd": "/path/to/your/project"
+      }
+    }
   ],
+
+  "session": {
+    "dmScope": "per-channel-peer",
+    "threadBindings": {
+      "enabled": true,
+      "idleHours": 48,
+      "maxAgeHours": 0
+    }
+  },
 
   "channels": {
     "telegram": {
@@ -104,6 +138,10 @@
         "coder": {
           "botToken": "YOUR_CODER_BOT_TOKEN",
           "dmPolicy": "pairing",
+          "threadBindings": {
+            "enabled": true,
+            "spawnAcpSessions": true
+          },
           "groups": {
             "YOUR_GROUP_ID": {
               "requireMention": true,

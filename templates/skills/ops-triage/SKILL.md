@@ -1,7 +1,12 @@
 ---
 name: ops-triage
 description: Triage operational inputs (email, calendar, tasks) into prioritized action queues with explicit ownership and deadlines.
+version: "1.0.0"
 ---
+
+## Install
+
+Copy to `agents/<ops>/skills/ops-triage/SKILL.md`. Requires email/calendar tool access.
 
 # Ops Triage Skill
 
